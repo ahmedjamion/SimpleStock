@@ -1,0 +1,166 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "b0c38caba5f667551f1483606f1af491",
+    "entities": [
+      {
+        "tableName": "Inventory",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`inventoryId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `inventoryName` TEXT, `passWord` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "inventoryId",
+            "columnName": "inventoryId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inventoryName",
+            "columnName": "inventoryName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "passWord",
+            "columnName": "passWord",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "inventoryId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Category",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`categoryId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `categoryName` TEXT, `inventoryId` INTEGER NOT NULL, FOREIGN KEY(`inventoryId`) REFERENCES `Inventory`(`inventoryId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "categoryId",
+            "columnName": "categoryId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "categoryName",
+            "columnName": "categoryName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "inventoryId",
+            "columnName": "inventoryId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "categoryId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Category_inventoryId",
+            "unique": false,
+            "columnNames": [
+              "inventoryId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Category_inventoryId` ON `${TABLE_NAME}` (`inventoryId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Inventory",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "inventoryId"
+            ],
+            "referencedColumns": [
+              "inventoryId"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Product",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`productId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `productName` TEXT, `categoryId` INTEGER NOT NULL, `productPrice` REAL NOT NULL, `productQuantity` INTEGER NOT NULL, FOREIGN KEY(`categoryId`) REFERENCES `Category`(`categoryId`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "productId",
+            "columnName": "productId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "productName",
+            "columnName": "productName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "categoryId",
+            "columnName": "categoryId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "productPrice",
+            "columnName": "productPrice",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "productQuantity",
+            "columnName": "productQuantity",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "productId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Product_categoryId",
+            "unique": false,
+            "columnNames": [
+              "categoryId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Product_categoryId` ON `${TABLE_NAME}` (`categoryId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Category",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "categoryId"
+            ],
+            "referencedColumns": [
+              "categoryId"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b0c38caba5f667551f1483606f1af491')"
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "254f569341a5d3a0763524a931274d51",
+    "entities": [
+      {
+        "tableName": "Inventory",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`inventoryId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `Name` TEXT, `Password` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "inventoryId",
+            "columnName": "inventoryId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inventoryName",
+            "columnName": "Name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "passWord",
+            "columnName": "Password",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "inventoryId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '254f569341a5d3a0763524a931274d51')"
+    ]
+  }
+}
