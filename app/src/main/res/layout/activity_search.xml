@@ -135,6 +135,7 @@
             android:layout_below="@+id/button_low_stocks"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/custom_button"
             android:text="Add a New Product" />
 
